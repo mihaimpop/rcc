@@ -1,0 +1,46 @@
+body {
+  background-color: black;
+  color: whitesmoke;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: blueviolet;
+}
+
+.App {
+  height: 96vh;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+}
+
+.inline-data {
+  display: flex;
+  justify-content: space-between;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.container {
+  width: 25vw;
+  margin: 0 auto;
+  font-size: 30px;
+  border: 11px solid #151517;
+  border-radius: 5px;
+  padding: 50px;
+}
+
+.reference {
+  font-size: 15px;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .container {
+    width: 66vw
+  }
+}
