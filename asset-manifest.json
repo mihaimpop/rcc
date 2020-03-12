@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/mihaimpop/romania-corona-counter/static/css/main.e23fc30b.chunk.css",
+    "main.js": "/mihaimpop/romania-corona-counter/static/js/main.7c5c46b6.chunk.js",
+    "main.js.map": "/mihaimpop/romania-corona-counter/static/js/main.7c5c46b6.chunk.js.map",
+    "runtime-main.js": "/mihaimpop/romania-corona-counter/static/js/runtime-main.be6a903c.js",
+    "runtime-main.js.map": "/mihaimpop/romania-corona-counter/static/js/runtime-main.be6a903c.js.map",
+    "static/js/2.51b8e49a.chunk.js": "/mihaimpop/romania-corona-counter/static/js/2.51b8e49a.chunk.js",
+    "static/js/2.51b8e49a.chunk.js.map": "/mihaimpop/romania-corona-counter/static/js/2.51b8e49a.chunk.js.map",
+    "index.html": "/mihaimpop/romania-corona-counter/index.html",
+    "precache-manifest.19ad4ed2cfcc51e9ac5378ed9009d6da.js": "/mihaimpop/romania-corona-counter/precache-manifest.19ad4ed2cfcc51e9ac5378ed9009d6da.js",
+    "service-worker.js": "/mihaimpop/romania-corona-counter/service-worker.js",
+    "static/css/main.e23fc30b.chunk.css.map": "/mihaimpop/romania-corona-counter/static/css/main.e23fc30b.chunk.css.map",
+    "static/js/2.51b8e49a.chunk.js.LICENSE.txt": "/mihaimpop/romania-corona-counter/static/js/2.51b8e49a.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.be6a903c.js",
+    "static/js/2.51b8e49a.chunk.js",
+    "static/css/main.e23fc30b.chunk.css",
+    "static/js/main.7c5c46b6.chunk.js"
+  ]
+}
