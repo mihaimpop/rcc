@@ -12,7 +12,7 @@ export default class DataHOC extends Component {
   }
 
   componentDidMount() {
-      const intervalId = setInterval(this.callData, 5000);
+      const intervalId = setInterval(this.callData, 1800000);
       // store intervalId in the state so it can be accessed later:
       this.setState({intervalId: intervalId});
       this.callData();

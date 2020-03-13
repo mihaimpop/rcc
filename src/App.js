@@ -2,6 +2,7 @@ import React from 'react';
 import CountUp from 'react-countup';
 
 import './App.css';
+import './materialize.css';
 import DataHOC from './config/DataHoc';
 
 export default class App extends React.Component {
@@ -30,10 +31,25 @@ export default class App extends React.Component {
     this.data = { country, confirmed, deaths, recovered, lastUpdate };
   };
 
+  preloader = () => (
+    <div class="preloader-wrapper big active">
+      <div class="spinner-layer spinner-blue-only">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div>
+        <div class="gap-patch">
+          <div class="circle"></div>
+        </div>
+        <div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
+  );
+
   renderCounter = (data) => {
-    console.log(data);
     if (!data) {
-      return null;
+      return this.preloader();
     }
 
     const { features } = data;
@@ -47,11 +63,13 @@ export default class App extends React.Component {
     } = attributes;
 
     return (
-      <div className="container">
-        <h3 className="text-center">{country} Corona Counter</h3>
-        <div>
-          <div className="inline-data">
-            <span>Confirmed</span>
+      <div className="card deep-purple darken-4 z-depth-2 own-container">
+        <span className="text-center card-title">
+          <h4>{country} Corona Counter</h4>
+        </span>
+        <div className="card-content">
+          <h5 className="inline-data">
+            Confirmed
             <CountUp
               start={0 || this.data.confirmed}
               end={confirmed}
@@ -67,9 +85,9 @@ export default class App extends React.Component {
                 );
               }}
             </CountUp>
-          </div>
-          <div className="inline-data">
-            <span>Deaths</span>
+          </h5>
+          <h5 className="inline-data">
+            Deaths
             <CountUp
               start={0 || this.data.deaths}
               end={deaths}
@@ -84,9 +102,9 @@ export default class App extends React.Component {
                 );
               }}
             </CountUp>
-          </div>
-          <div className="inline-data">
-            <span>Recovered</span>
+          </h5>
+          <h5 className="inline-data">
+            Recovered
             <CountUp
               start={0 || this.data.recovered}
               end={recovered}
@@ -101,29 +119,35 @@ export default class App extends React.Component {
                 );
               }}
             </CountUp>
-          </div>
+          </h5>
         </div>
-        <h6 className="text-center">
-          Last update: {`${new Date(lastUpdate)}`}
-        </h6>
-        <div className="text-center reference">
+        <p className="text-center">Last update: {`${new Date(lastUpdate)}`}</p>
+        <p className="text-center">
           {'Data by '}
           <a href="https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6">
             John Hopkins University
           </a>
-        </div>
+        </p>
         {/* <div className="text-center reference">
           <label>Update interval: </label>
           <input type="number"></input>
         </div> */}
+        <div className="card-action">
+          <a href="https://github.com/mihaimpop/rcc/tree/master">Github</a>
+          <a href="https://staythefuckhome.com/">#staythefuckhome    <i class="material-icons btn-floating btn-small pulse red">❤</i></a> 
+        </div>
       </div>
     );
   };
 
   render() {
     return (
-      <div className="App">
-        <DataHOC>{this.renderCounter}</DataHOC>
+      <div className="App container">
+        <div class="row">
+          <div class="col s12 m11 l11 offset-m1 offset-l1">
+            <DataHOC>{this.renderCounter}</DataHOC>
+          </div>
+        </div>
       </div>
     );
   }
