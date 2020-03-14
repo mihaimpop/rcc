@@ -64,8 +64,8 @@ export default class App extends React.Component {
 
     return (
       <div className="card deep-purple darken-4 z-depth-2 own-container">
-        <span className="text-center card-title">
-          <h4>{country} Corona Counter</h4>
+        <span className="card-title">
+          <h4 className="last-update">{country} Corona Counter</h4>
         </span>
         <div className="card-content">
           <h5 className="inline-data">
@@ -121,20 +121,27 @@ export default class App extends React.Component {
             </CountUp>
           </h5>
         </div>
-        <p className="text-center">Last update: {`${new Date(lastUpdate)}`}</p>
-        <p className="text-center">
-          {'Data by '}
-          <a href="https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6">
-            John Hopkins University
-          </a>
-        </p>
+        <div className="last-update">
+          <p className="text-center">
+            Last update: {`${new Date(lastUpdate)}`}
+          </p>
+          <p className="text-center">
+            {'Data by '}
+            <a href="https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6">
+              John Hopkins University
+            </a>
+          </p>
+        </div>
         {/* <div className="text-center reference">
           <label>Update interval: </label>
           <input type="number"></input>
         </div> */}
         <div className="card-action">
           <a href="https://github.com/mihaimpop/rcc/tree/master">Github</a>
-          <a href="https://staythefuckhome.com/">#staythefuckhome    <i class="material-icons btn-floating btn-small pulse red">❤</i></a> 
+          <a href="https://staythefuckhome.com/">
+            #staythefuckhome{' '}
+            <i class="material-icons btn-floating btn-small pulse red">❤</i>
+          </a>
         </div>
       </div>
     );
@@ -144,7 +151,7 @@ export default class App extends React.Component {
     return (
       <div className="App container">
         <div class="row">
-          <div class="col s12 m11 l11 offset-m1 offset-l1">
+          <div class="col s12 m12 l12">
             <DataHOC>{this.renderCounter}</DataHOC>
           </div>
         </div>
