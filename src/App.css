@@ -1,3 +1,7 @@
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
 body {
   background-color: #212121;
   color: whitesmoke;
@@ -39,8 +43,12 @@ a {
   padding: 0 25px;
 }
 
+.own-card-title {
+  font-weight: 400;
+}
+
 .card-content {
-  color: navajowhite;
+  color: whitesmoke;
 }
 
 /* @media only screen and (max-width: 600px) {

@@ -1,5 +1,6 @@
 import React from 'react';
 import CountUp from 'react-countup';
+import ReactGA from 'react-ga';
 
 import './App.css';
 import './materialize.css';
@@ -7,12 +8,20 @@ import DataHOC from './config/DataHoc';
 
 export default class App extends React.Component {
   data = {
+    active: 0,
     confirmed: 0,
     country: null,
     deaths: 0,
     lastUpdate: null,
     recovered: 0,
   };
+  countDelay = 0;
+  countDuration = 2.75;
+
+  componentDidMount() {
+    ReactGA.initialize('UA-160610049-1');
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }
 
   setData = (data) => {
     if (!data) {
@@ -55,6 +64,7 @@ export default class App extends React.Component {
     const { features } = data;
     const { attributes } = features[0];
     const {
+      Active: active,
       Country_Region: country,
       Confirmed: confirmed,
       Deaths: deaths,
@@ -62,10 +72,15 @@ export default class App extends React.Component {
       Last_Update: lastUpdate,
     } = attributes;
 
+    const colors = ['purple darken-4', 'indigo darken-4', 'deep-purple darken-4', 'blue darken-4',
+    'cyan darken-4', 'green darken-4', 'grey darken-4', 'blue-grey darken-4'];
+    const random = (min, max) => Math.floor(Math.random()*(max - min + 1) + min);
+    const randomColor = colors[random(0, colors.length - 1)];
+
     return (
-      <div className="card deep-purple darken-4 z-depth-2 own-container">
+      <div className={`card ${randomColor} z-depth-2 own-container`}>
         <span className="card-title">
-          <h4 className="last-update">{country} Corona Counter</h4>
+          <h4 className="last-update own-card-title">{country} COVID-19 Stats</h4>
         </span>
         <div className="card-content">
           <h5 className="inline-data">
@@ -73,28 +88,11 @@ export default class App extends React.Component {
             <CountUp
               start={0 || this.data.confirmed}
               end={confirmed}
-              delay={0}
-              duration={2.75}
+              delay={this.countDelay}
+              duration={this.countDuration}
             >
               {({ countUpRef }) => {
                 this.setData(data);
-                return (
-                  <div>
-                    <span ref={countUpRef} />
-                  </div>
-                );
-              }}
-            </CountUp>
-          </h5>
-          <h5 className="inline-data">
-            Deaths
-            <CountUp
-              start={0 || this.data.deaths}
-              end={deaths}
-              delay={0}
-              duration={2.75}
-            >
-              {({ countUpRef }) => {
                 return (
                   <div>
                     <span ref={countUpRef} />
@@ -108,8 +106,8 @@ export default class App extends React.Component {
             <CountUp
               start={0 || this.data.recovered}
               end={recovered}
-              delay={0}
-              duration={2.75}
+              delay={this.countDelay}
+              duration={this.countDuration}
             >
               {({ countUpRef }) => {
                 return (
@@ -120,6 +118,41 @@ export default class App extends React.Component {
               }}
             </CountUp>
           </h5>
+          <h5 className="inline-data">
+            Deaths
+            <CountUp
+              start={0 || this.data.deaths}
+              end={deaths}
+              delay={this.countDelay}
+              duration={this.countDuration}
+            >
+              {({ countUpRef }) => {
+                return (
+                  <div>
+                    <span ref={countUpRef} />
+                  </div>
+                );
+              }}
+            </CountUp>
+          </h5>
+          <h5 className="inline-data">
+            Active
+            <CountUp
+              start={0 || this.data.active}
+              end={active}
+              delay={this.countDelay}
+              duration={this.countDuration}
+            >
+              {({ countUpRef }) => {
+                return (
+                  <div>
+                    <span ref={countUpRef} />
+                  </div>
+                );
+              }}
+            </CountUp>
+          </h5>
+
         </div>
         <div className="last-update">
           <p className="text-center">
@@ -140,7 +173,7 @@ export default class App extends React.Component {
           <a href="https://github.com/mihaimpop/rcc/tree/master">Github</a>
           <a href="https://staythefuckhome.com/">
             #staythefuckhome{' '}
-            <i class="material-icons btn-floating btn-small pulse red">❤</i>
+            <i class="material-icons btn-floating btn-small pulse red">&#10084;</i>
           </a>
         </div>
       </div>
