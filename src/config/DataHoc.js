@@ -1,21 +1,20 @@
-import {Component} from 'react';
+import { Component } from 'react';
 import { dataReq } from './Request';
 
 export default class DataHOC extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
       intervalId: null,
-      data: null
-    }
+      data: null,
+    };
   }
 
   componentDidMount() {
-      const intervalId = setInterval(this.callData, 1800000);
-      // store intervalId in the state so it can be accessed later:
-      this.setState({intervalId: intervalId});
-      this.callData();
+    const intervalId = setInterval(this.callData, 1800000);
+    // store intervalId in the state so it can be accessed later:
+    this.setState({ intervalId: intervalId });
+    this.callData();
   }
 
   componentWillUnmount() {
@@ -25,16 +24,17 @@ export default class DataHOC extends Component {
 
   callData = () => {
     dataReq()
-      .then((response => response.json()))
+      .then((responses) =>
+        Promise.all(responses.map((response, index) => response.json())),
+      )
       .then((data) => {
-        this.setState({data})
+        console.log(data);
+        this.setState({ data });
       });
-  }
+  };
 
   render() {
-    const {data} = this.state;
-    return (
-      this.props.children(data)
-    );
+    const { data } = this.state;
+    return this.props.children(data);
   }
 }

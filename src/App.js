@@ -8,12 +8,13 @@ import DataHOC from './config/DataHoc';
 
 export default class App extends React.Component {
   data = {
-    active: 0,
-    confirmed: 0,
-    country: null,
-    deaths: 0,
-    lastUpdate: null,
-    recovered: 0,
+    totalCases: 0,
+    totalDeaths: 0,
+    totalVaccine: 0,
+    day28Cases: 0,
+    day28Deaths: 0,
+    day28Vaccine: 0,
+    lastUpdate: null
   };
   countDelay = 0;
   countDuration = 2.75;
@@ -27,17 +28,23 @@ export default class App extends React.Component {
     if (!data) {
       return;
     }
-    const { features } = data;
-    const { attributes } = features[0];
-    const {
-      Country_Region: country,
-      Confirmed: confirmed,
-      Deaths: deaths,
-      Recovered: recovered,
-      Last_Update: lastUpdate,
-    } = attributes;
+    const totalCases = data?.[0]?.features?.[0]?.attributes?.value;
+    const totalDeaths = data?.[1]?.features?.[0]?.attributes?.value;
+    const totalVaccine = data?.[2]?.features?.[0]?.attributes?.value;
+    const day28Cases = data?.[3]?.features?.[0]?.attributes?.value;
+    const day28Deaths = data?.[4]?.features?.[0]?.attributes?.value;
+    const day28Vaccine = data?.[5]?.features?.[0]?.attributes?.value;
+    const lastUpdate = data?.[6]?.editingInfo?.lastEditDate;
 
-    this.data = { country, confirmed, deaths, recovered, lastUpdate };
+    this.data = {
+      totalCases,
+      totalDeaths,
+      totalVaccine,
+      day28Cases,
+      day28Deaths,
+      day28Vaccine,
+      lastUpdate
+    };
   };
 
   preloader = () => (
@@ -55,39 +62,52 @@ export default class App extends React.Component {
       </div>
     </div>
   );
+  renderSmth = (data) => JSON.stringify(data);
 
   renderCounter = (data) => {
     if (!data) {
       return this.preloader();
     }
 
-    const { features } = data;
-    const { attributes } = features[0];
-    const {
-      Active: active,
-      Country_Region: country,
-      Confirmed: confirmed,
-      Deaths: deaths,
-      Recovered: recovered,
-      Last_Update: lastUpdate,
-    } = attributes;
+    const totalCases = data?.[0]?.features?.[0]?.attributes?.value;
+    const totalDeaths = data?.[1]?.features?.[0]?.attributes?.value;
+    const totalVaccine = data?.[2]?.features?.[0]?.attributes?.value;
+    const day28Cases = data?.[3]?.features?.[0]?.attributes?.value;
+    const day28Deaths = data?.[4]?.features?.[0]?.attributes?.value;
+    const day28Vaccine = data?.[5]?.features?.[0]?.attributes?.value;
+    const lastUpdate = data?.[6]?.editingInfo?.lastEditDate;
 
-    const colors = ['purple darken-4', 'indigo darken-4', 'deep-purple darken-4', 'blue darken-4',
-    'cyan darken-4', 'green darken-4', 'grey darken-4', 'blue-grey darken-4'];
-    const random = (min, max) => Math.floor(Math.random()*(max - min + 1) + min);
+    const colors = [
+      'purple darken-4',
+      'indigo darken-4',
+      'deep-purple darken-4',
+      'blue darken-4',
+      'cyan darken-4',
+      'green darken-4',
+      'blue-grey darken-4',
+      'red darken-4',
+      'pink accent-4',
+      'indigo accent-4',
+      'light-blue darken-4',
+      'light-green darken-4'
+    ];
+    const random = (min, max) =>
+      Math.floor(Math.random() * (max - min + 1) + min);
     const randomColor = colors[random(0, colors.length - 1)];
 
     return (
       <div className={`card ${randomColor} z-depth-2 own-container`}>
         <span className="card-title">
-          <h4 className="last-update own-card-title">{country} COVID-19 Stats</h4>
+          <h4 className="last-update own-card-title">
+            Romania COVID-19 Stats
+          </h4>
         </span>
         <div className="card-content">
           <h5 className="inline-data">
-            Confirmed
+            Total Cases
             <CountUp
-              start={0 || this.data.confirmed}
-              end={confirmed}
+              start={0 || this.data.totalCases}
+              end={totalCases}
               delay={this.countDelay}
               duration={this.countDuration}
             >
@@ -102,10 +122,10 @@ export default class App extends React.Component {
             </CountUp>
           </h5>
           <h5 className="inline-data">
-            Recovered
+            Total Deaths
             <CountUp
-              start={0 || this.data.recovered}
-              end={recovered}
+              start={0 || this.data.totalDeaths}
+              end={totalDeaths}
               delay={this.countDelay}
               duration={this.countDuration}
             >
@@ -119,10 +139,10 @@ export default class App extends React.Component {
             </CountUp>
           </h5>
           <h5 className="inline-data">
-            Deaths
+            Total Vaccine Doses Administered
             <CountUp
-              start={0 || this.data.deaths}
-              end={deaths}
+              start={0 || this.data.totalVaccine}
+              end={totalVaccine}
               delay={this.countDelay}
               duration={this.countDuration}
             >
@@ -136,10 +156,10 @@ export default class App extends React.Component {
             </CountUp>
           </h5>
           <h5 className="inline-data">
-            Active
+            28-Day Cases
             <CountUp
-              start={0 || this.data.active}
-              end={active}
+              start={0 || this.data.day28Cases}
+              end={day28Cases}
               delay={this.countDelay}
               duration={this.countDuration}
             >
@@ -152,7 +172,40 @@ export default class App extends React.Component {
               }}
             </CountUp>
           </h5>
-
+          <h5 className="inline-data">
+            28-Day Deaths
+            <CountUp
+              start={0 || this.data.day28Deaths}
+              end={day28Deaths}
+              delay={this.countDelay}
+              duration={this.countDuration}
+            >
+              {({ countUpRef }) => {
+                return (
+                  <div>
+                    <span ref={countUpRef} />
+                  </div>
+                );
+              }}
+            </CountUp>
+          </h5>
+          <h5 className="inline-data">
+            28-Day Cases
+            <CountUp
+              start={0 || this.data.day28Vaccine}
+              end={day28Vaccine}
+              delay={this.countDelay}
+              duration={this.countDuration}
+            >
+              {({ countUpRef }) => {
+                return (
+                  <div>
+                    <span ref={countUpRef} />
+                  </div>
+                );
+              }}
+            </CountUp>
+          </h5>
         </div>
         <div className="last-update">
           <p className="text-center">
@@ -173,7 +226,9 @@ export default class App extends React.Component {
           <a href="https://github.com/mihaimpop/rcc/tree/master">Github</a>
           <a href="https://staythefuckhome.com/">
             #staythefuckhome{' '}
-            <i class="material-icons btn-floating btn-small pulse red">&#10084;</i>
+            <i class="material-icons btn-floating btn-small pulse red">
+              &#10084;
+            </i>
           </a>
         </div>
       </div>
@@ -183,8 +238,8 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="App container">
-        <div class="row">
-          <div class="col s12 m12 l12">
+        <div className="row">
+          <div className="col s12 m12 l12">
             <DataHOC>{this.renderCounter}</DataHOC>
           </div>
         </div>
